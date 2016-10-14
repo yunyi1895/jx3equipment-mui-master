@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-bars mui-pull-left mui-plus-visible"></a>
+			<a id="info" class="mui-icon mui-icon-info-filled mui-pull-right" style="color: #999;"></a>
+			<h1 class="mui-title">Hello mui</h1>
+		</header>-->
+		<script src="js/mui.min.js"></script>
+		<script src="js/update.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+		
+			var menu = null,
+				main = null;
+			var showMenu = false;
+			function preload () {
+				mui.preload({
+					url:'examples/tab-webview-main.html',
+					styles: {
+						popGesture: 'hide'
+					}
+				});
+//				mui.preload({
+//					url:"examples/pullrefresh_main.html",
+//					styles:{
+//						popGesture:'hide'
+//					}
+//				});
+				mui.preload({
+					url:'examples/tab-webview-subpage-about.html',
+					styles: {
+						popGesture: 'hide'
+					}
+				});				
+			}
+			var templates = {};
+			var getTemplate = function(name, header, content) {
+				var template = templates[name];
+				if (!template) {
+					//预加载共用父模板；
+					var headerWebview = mui.preload({
+						url: header,
+						id: name + "-main",
+						styles: {
+							popGesture: "hide",
+						},
+						extras: {
+							mType: 'main'
+						}
+					});
+					//预加载共用子webview
+					var subWebview = mui.preload({
+						url: !content ? "" : content,
+						id: name + "-sub",
+						styles: {
+							top: '1px',
+							bottom: '0px',
+						},
+						extras: {
+							mType: 'sub'
+						}
+					});
+					subWebview.addEventListener('loaded', function() {
+						setTimeout(function() {
+							subWebview.show();
+						}, 50);
+					});
+					subWebview.hide();
+					headerWebview.append(subWebview);
+					//iOS平台支持侧滑关闭，父窗体侧滑隐藏后，同时需要隐藏子窗体；
+					if (mui.os.ios) { //5+父窗体隐藏，子窗体还可以看到？不符合逻辑吧？
+						headerWebview.addEventListener('hide', function() {
+							subWebview.hide("none");
+						});
+					}
+					templates[name] = template = {
+						name: name,
+						header: headerWebview,
+						content: subWebview,
+					};
+				}
+				return template;
+			};
+			var initTemplates = function() {
+				getTemplate('default', 'examples/template.html');
+			};
+			mui.init({
+				
+				swipeBack: false,
+				statusBarBackground: '#f60',//设置状态栏颜色iOS7.0+、安卓不支持）
+				gestureConfig: {
+					doubletap: true
+				},
+				/*subpages: [{//创建子页面
+					id: 'list',//子页面标志
+					url: 'list1.html',//子页面HTML地址，支持本地地址和网络地址
+					//	id: 'examples/tab-webview-main.html',
+					//	url: 'examples/tab-webview-main.html',
+						//url: "info.html",
+						//id: "info",
+					styles: {
+						top: '45px',//子页面顶部位置
+						bottom: 0,//子页面底部位置
+						bounce: 'vertical'
+					}
+				}]*/
+			});
+			function openwebview(){
+				
+					var webview_style = {
+						popGesture: "close"
+					};
+					var aniShow = "pop-in";
+					mui.openWindow({
+						id: 'examples/tab-webview-main.html',
+						url: 'examples/tab-webview-main.html',
+						styles: webview_style,
+						show: {
+							aniShow: aniShow
+						},
+						waiting: {
+							autoShow: false
+						}
+					});				
+				
+			}
+			mui.plusReady(function() {//页面初始化
+				//仅支持竖屏显示
+				plus.screen.lockOrientation("portrait-primary");
+				main = plus.webview.currentWebview();
+									//初始化模板
+					initTemplates();
+					
+					//预加载
+					preload();
+					setTimeout(function() {
+						
+							openwebview()
+						
+					},200)
+				
+					//alert(2)
+			//	main.addEventListener('maskClick', closeMenu);
+				
+				//处理侧滑导航，为了避免和子页面初始化等竞争资源，延迟加载侧滑页面；
+				/*setTimeout(function() {
+					menu = mui.preload({
+						id: 'index-menu',
+						url: 'index-menu.html',
+						styles: {
+							left: 0,
+							width: '70%',
+							zindex: -1
+						},
+						show: {
+							aniShow: 'none'
+						}
+					});
+				}, 200);*/
+			});
+			var isInTransition = false;
+			
+			 // 显示侧滑菜单
+			 
+		/*	function openMenu() {
+				
+				if (isInTransition) {
+					
+					return;
+				}
+				if (!showMenu) {
+					//侧滑菜单处于隐藏状态，则立即显示出来；
+					isInTransition = true;
+					
+					menu.setStyle({
+						mask: 'rgba(0,0,0,0)'
+					}); //menu设置透明遮罩防止点击
+					menu.show('none', 0, function() {
+						//主窗体开始侧滑并显示遮罩
+						main.setStyle({
+							mask: 'rgba(0,0,0,0.4)',
+							left: '70%',
+							transition: {
+								duration: 150
+							}
+						});
+						mui.later(function() {
+							isInTransition = false;
+							menu.setStyle({
+								mask: "none"
+							}); //移除menu的mask
+						}, 160);
+						showMenu = true;
+					});
+				}
+			};
+			
+			//关闭菜单
+			 
+			function closeMenu() {
+				if (isInTransition) {
+					return;
+				}
+				if (showMenu) {
+					//关闭遮罩；
+					//主窗体开始侧滑；
+					isInTransition = true;
+					main.setStyle({
+						mask: 'none',
+						left: '0',
+						transition: {
+							duration: 200
+						}
+					});
+					showMenu = false;
+					//等动画结束后，隐藏菜单webview，节省资源；
+					mui.later(function() {
+						isInTransition = false;
+						menu.hide();
+					}, 300);
+				}
+			};
+			//点击左上角侧滑图标，打开侧滑菜单；
+			document.querySelector('.mui-icon-bars').addEventListener('tap', function(e) {
+				if (showMenu) {
+					closeMenu();
+				} else {
+					openMenu();
+				}
+			});
+			//敲击顶部导航，内容区回到顶部
+			document.querySelector('header').addEventListener('doubletap', function() {
+				main.children()[0].evalJS('mui.scrollTo(0, 100)');
+			});
+			//主界面向右滑动，若菜单未显示，则显示菜单；否则不做任何操作
+			window.addEventListener("swiperight", openMenu);
+			//主界面向左滑动，若菜单已显示，则关闭菜单；否则，不做任何操作；
+			window.addEventListener("swipeleft", closeMenu);
+			//侧滑菜单触发关闭菜单命令
+			window.addEventListener("menu:close", closeMenu);
+			window.addEventListener("menu:open", openMenu);
+			//重写mui.menu方法，Android版本menu按键按下可自动打开、关闭侧滑菜单；
+			mui.menu = function() {
+					if (showMenu) {
+						closeMenu();
+					} else {
+						openMenu();
+					}
+				}
+				//处理右上角关于图标的点击事件；
+			var subWebview = null,
+				template = null;
+			document.getElementById('info').addEventListener('tap', function() {
+				if (!mui.os.plus) {
+					mui.openWindow({
+						url: "examples/info.html",
+						id: "info",
+						show: {
+							aniShow: 'zoom-fade-out',////页面显示动画，默认为”slide-in-right“；
+							duration: 300//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒
+						}
+					});
+					return;
+				}
+				if (subWebview == null) {
+					//获取共用父窗体
+					template = plus.webview.getWebviewById("default-main");
+				}
+				if (template) {
+					subWebview = template.children()[0];
+					subWebview.loadURL('examples/info.html');
+					//修改共用父模板的标题
+					mui.fire(template, 'updateHeader', {
+						title: '关于',
+						showMenu: false
+					});
+					template.show('slide-in-right', 150);
+				}
+				//				mui.openWindow({
+				//					url:"examples/info.html",
+				//					id:"info",
+				//					show:{
+				//						aniShow:'zoom-fade-out',
+				//						duration:300
+				//					}
+				//				});
+			});*/
+			//首页返回键处理
+			//处理逻辑：1秒内，连续两次按返回键，则退出应用；
+			var first = null;
+			mui.back = function() {
+				if (showMenu) {
+					closeMenu();
+				} else {
+					//首次按键，提示‘再按一次退出应用’
+					if (!first) {
+						first = new Date().getTime();
+						mui.toast('再按一次退出应用');
+						setTimeout(function() {
+							first = null;
+						}, 1000);
+					} else {
+						if (new Date().getTime() - first < 1000) {
+							plus.runtime.quit();
+						}
+					}
+				}
+			};
+		</script>
+	</body>
+
+</html>

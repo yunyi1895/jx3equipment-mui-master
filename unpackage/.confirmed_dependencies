@@ -1,0 +1,364 @@
+{
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/update.js",
+			"list.html"
+		],
+		"refer": [
+			"index-menu.html",
+			"list.html",
+			"examples/template.html",
+			"examples/tab-webview-main.html",
+			"examples/pullrefresh_main.html",
+			"examples/tabbar.html",
+			"examples/tabbar-labels-only.html",
+			"examples/tab-with-viewpagerindicator.html",
+			"examples/tab-with-segmented-control.html",
+			"examples/info.html",
+			"list1.html",
+			"info.html",
+			"examples/tab-webview-subpage-about.html"
+		]
+	},
+	"examples/tab-webview-main.html": {
+		"resources": [
+			"examples/tab-webview-subpage-about.html",
+			"fonts/mui.ttf",
+			"js/mui.min.js",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"examples/tab-webview-subpage-setting.html",
+			"examples/tab-webview-subpage-chat.html",
+			"examples/tab-webview-subpage-contact.html",
+			"examples/tab-webview-subpage-about.html",
+			"examples/guide.html"
+		]
+	},
+	"list.html": {
+		"refer": [
+			"examples/template.html",
+			"examples/tab-webview-main.html",
+			"examples/pullrefresh_main.html",
+			"examples/guide.html",
+			"examples/accordion.html",
+			"examples/dialog.html",
+			"examples/info.html",
+			"examples/tableviews-with-swipe.html",
+			"examples/tab-with-viewpagerindicator.html",
+			"examples/icons.html",
+			"examples/actionsheet.html",
+			"examples/actionsheet-plus.html",
+			"examples/ajax.html",
+			"examples/buttons.html",
+			"examples/badges.html",
+			"examples/buttons-with-icons.html",
+			"examples/checkbox.html",
+			"examples/dtpicker.html",
+			"examples/date.html",
+			"examples/offcanvas-drag-right-plus-main.html",
+			"examples/offcanvas-drag-right.html",
+			"examples/offcanvas-drag-left.html",
+			"examples/offcanvas-drag-down.html",
+			"examples/nav.html",
+			"examples/pagination.html",
+			"examples/tabbar-with-submenus.html",
+			"examples/tabbar.html",
+			"examples/tab-with-segmented-control-vertical.html",
+			"examples/radio.html",
+			"examples/tabbar-labels-only.html",
+			"examples/tab-with-segmented-control.html"
+		],
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"examples/tab-webview-main.html"
+		]
+	},
+	"examples/pullrefresh_main.html": {
+		"resources": [
+			"examples/pullrefresh_sub.html",
+			"fonts/mui.ttf"
+		],
+		"refer": [
+			"examples/pullrefresh_sub.html"
+		]
+	},
+	"examples/tab-webview-subpage-contact.html": {
+		"resources": [
+			"images/60x60.gif",
+			"js/mui.min.js",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"examples/accordion.html": {
+		"resources": [
+			"images/cbd.jpg",
+			"images/muwu.jpg",
+			"images/yuantiao.jpg",
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"images/shuijiao.jpg"
+		],
+		"refer": []
+	},
+	"examples/info.html": {
+		"resources": [
+			"css/app.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"index-menu.html": {
+		"refer": [
+			"examples/offcanvas-drag-left.html"
+		],
+		"resources": [
+			"css/mui.min.css"
+		]
+	},
+	"examples/tableviews-with-swipe.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"examples/dialog.html": {
+		"resources": [
+			"css/app.css"
+		],
+		"refer": []
+	},
+	"examples/ajax.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"examples/dtpicker.html": {
+		"resources": [
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css"
+		],
+		"refer": []
+	},
+	"examples/offcanvas-drag-right-plus-main.html": {
+		"refer": [
+			"examples/offcanvas-drag-right-plus-menu.html"
+		],
+		"resources": []
+	},
+	"examples/offcanvas-drag-right.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/mui.css",
+			"jsondate/userinfo.json"
+		],
+		"refer": []
+	},
+	"examples/offcanvas-drag-left.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"examples/offcanvas-drag-down.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"examples/nav.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"examples/pagination.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"examples/tabbar.html": {
+		"resources": [
+			"images/60x60.gif",
+			"css/app.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"examples/radio.html": {
+		"resources": [
+			"css/app.css"
+		],
+		"refer": []
+	},
+	"examples/tabbar-labels-only.html": {
+		"resources": [
+			"css/app.css"
+		],
+		"refer": []
+	},
+	"examples/tab-with-viewpagerindicator.html": {
+		"resources": [
+			"css/app.css"
+		],
+		"refer": []
+	},
+	"examples/tab-webview-subpage-chat.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"css/mui.css",
+			"images/cbd.jpg",
+			"images/muwu.jpg",
+			"images/yuantiao.jpg",
+			"images/shuijiao.jpg",
+			"css/peizhuang.css",
+			"jsondate/userinfo.json",
+			"jsondate/ng1maozi.json",
+			"jsondate/ng2maozi.json",
+			"jsondate/aoxue.json",
+			"js/rem.js",
+			"jsondate/mowen.json",
+			"jsondate/bingxin.json",
+			"jsondate/huajian.json",
+			"jsondate/tianluo.json",
+			"jsondate/fenying.json",
+			"jsondate/lijing.json",
+			"jsondate/dujing.json",
+			"jsondate/tiegu.json",
+			"jsondate/yijin.json",
+			"jsondate/ng1public.json",
+			"js/mui.picker.js",
+			"js/mui.poppicker.js",
+			"css/app.css",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"jsondate/ng2public.json",
+			"libs/easymob-webim-sdk/jquery-1.11.1.js",
+			"jsondate/zixia.json",
+			"jsondate/zlpublic.json",
+			"jsondate/xiaochen.json",
+			"jsondate/cangjian.json",
+			"jsondate/testtime.json",
+			"jsondate/fenshan.json",
+			"images/stone6.jpg",
+			"jsondate/xisui.json",
+			"jsondate/mtpublic.json",
+			"jsondate/jingyu.json",
+			"jsondate/wg2public.json",
+			"jsondate/taixu.json",
+			"jsondate/wg1public.json",
+			"jsondate/yunchang.json",
+			"images/stonesix.jpg",
+			"images/stoneseven.jpg",
+			"images/stoneeight.jpg",
+			"images/stone7.jpg",
+			"images/stone8.jpg",
+			"jsondate/ngfm2.json",
+			"jsondate/ngfm1.json",
+			"jsondate/wgfm1.json",
+			"jsondate/wgfm2.json",
+			"jsondate/butian.json",
+			"jsondate/zlfm.json",
+			"jsondate/mtfm.json",
+			"jsondate/tielao.json",
+			"images/top.png",
+			"jsondate/wcs/huajian.json",
+			"images/nullwcs.jpg",
+			"jsondate/wcs/zixia.json",
+			"jsondate/wcs/mowen.json",
+			"jsondate/wcs/fenying.json",
+			"jsondate/wcs/dujing.json",
+			"jsondate/wcs/tianluo.json",
+			"images/stone2.jpg",
+			"images/stone4.jpg",
+			"images/stone3.jpg",
+			"images/stone5.jpg",
+			"images/stone1.jpg",
+			"jsondate/wcs/butian.json",
+			"jsondate/wcs/yunchang.json",
+			"jsondate/wcs/lijing.json"
+		],
+		"refer": []
+	},
+	"examples/tab-webview-subpage-setting.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"examples/template.html": {
+		"resources": [
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"list1.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"js/mui.min.js",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"examples/offcanvas-drag-right-plus-main.html",
+			"examples/offcanvas-drag-right.html"
+		]
+	},
+	"info.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/app.css",
+			"css/mui.min.css",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"examples/tab-webview-subpage-about.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/mui.min.css",
+			"images/cbd.jpg",
+			"images/yuantiao.jpg",
+			"images/muwu.jpg",
+			"images/shuijiao.jpg",
+			"images/jx3.jpg",
+			"images/jx2.jpg",
+			"images/jx4.jpg",
+			"images/jx1.jpg"
+		]
+	}
+}

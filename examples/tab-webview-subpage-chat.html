@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../libs/easymob-webim-sdk/jquery-1.11.1.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="../css/mui.css">
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css"/>-->
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/peizhuang.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			
+			p {
+				text-indent: 22px;
+			}
+			
+			span.mui-icon {
+				font-size: 14px;
+				color: #007aff;
+				margin-left: -15px;
+				padding-right: 10px;
+			}
+			
+			.mui-off-canvas-left {
+				color: #fff;
+			}
+			
+			.title {
+				margin: 35px 15px 10px;
+			}
+			
+			.title+.content {
+				margin: 10px 15px 35px;
+				color: #bbb;
+				text-indent: 1em;
+				font-size: 14px;
+				line-height: 24px;
+			}
+			
+			input {
+				color: #000;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="offCanvasWrapper" class="mui-off-canvas-wrap mui-draggable">
+			<!--侧滑菜单部分-->
+			<aside id="offCanvasSide" class="mui-off-canvas-left">
+				<div id="offCanvasSideScroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						
+						<div class="content">
+							<img style="width: 250px;display: block;margin: 0 auto;padding-top: 10px;" src="../images/top.png"/>
+						</div>
+						<div class="title">职业选择</div>
+						<!--<div class="title" style="margin-bottom: 25px;">选择职业</div>-->
+						<ul id="zhiye" class="mui-table-view mui-table-view-chevron mui-table-view-inverted">
+						
+						</ul>
+					</div>
+				</div>
+			</aside>
+			<!--主界面部分-->
+			<div class="mui-inner-wrap">
+				<header class="mui-bar mui-bar-nav">
+					<a href="#offCanvasSide" class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
+					<a class="mui-btn mui-btn-link mui-pull-right">保存方案</a>
+					<h1 class="mui-title">配装器</h1>
+				</header>
+				<div id="offCanvasContentScroll" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="equipment mui-content">
+							<li class="ep_name">
+								<span id="zbname">云翳开发</span>
+								<span id="strengthen"></span>
+								<span id="jinglian" class="qingse">
+								</span>
+							</li>
+							<li id="weizhi" class="ep_place">感谢前人提供属性计算公式</li>
+							<li class="ep_publicAttributes"><span id="wgShield">数值精没有误差</span></li>
+							<li class="ep_publicAttributes"><span id="ngShield">感谢某某赞助</span></li>
+							<li class="ep_publicAttributes"><span id="tizhi">电五双梦魅舞招收各种给力PVP玩家</span><span id="tizhi2" class="qingse"></span></li>
+							<li class="ep_publicAttributes"><span id="ggjbsx">电五大姨妈胖次高高挂帮会招收各种给力PVP玩家</span><span id="ggjbsx2" class="qingse"></span></li>
+							<div id="qtsx">
+											
+							</div>
+							<!--<li class="ep_privateAttributes">内功攻击提高147<span id="" class="qingse">(+11)</span></li>
+							<li class="ep_privateAttributes">
+								内功会心等级提高105
+								<span id="" class="qingse">
+									(+8)
+								</span>
+							</li>
+							<li class="ep_privateAttributes">
+								内功会心效果提高48
+								<span id="" class="qingse">
+									(+8)
+								</span>
+							</li>-->
+							<div id="xiangq">
+								
+							</div>
+							<div id="texiao">
+								
+							</div>
+							<div id="fm">
+								
+							</div>
+							<li class="ep_quality"><span id="quality">电五风雨同舟三行情书招收各种给力PVX玩家</span></li>
+							<li class="ep_fraction"><span id="score">电五双梦西山居招收PVE高端玩家</span></li>
+							<li id="xinfatj" class="ep_sects">开发者微博：云翳</li>
+							<li id="dropSource" class="ep_getPath">YY交流群12345678</li>
+						</div>
+
+						<div id="buwei" class="mui-content btn">
+
+						</div>
+
+						<div class="mui-content">
+							<div class="mui-card">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell mui-collapse">
+										<a class="mui-navigate-right" href="#">装备选择</a>
+										<div class="mui-collapse-content">
+											<form class="mui-input-group">
+												<div id='userResult' class="ui-alert" style="text-align: center;padding: 5px 0; font-size: 20px;"></div>
+												<button id='showUserPicker' class="mui-btn " type='button' style="width: 100%;padding:10px 0;margin: 0 auto;background: #007AFF;border-radius: 6px;color: #F0F0F0;">选择装备</button>
+
+													<!--<div class="mui-input-row">
+													<label>Input</label>
+										<input type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
+												</div>
+
+												<div class="mui-input-row mui-plus-visible">
+													<label>Input</label>
+													<!--<input type="text" class="mui-input-speech mui-input-clear" placeholder="语音输入">
+												</div>
+												<div class="mui-button-row">
+													<button class="mui-btn mui-btn-primary" type="button" onclick="return false;">确认</button>&nbsp;&nbsp;
+													<button class="mui-btn mui-btn-primary" type="button" onclick="return false;">取消</button>
+												</div>-->
+											</form>
+										</div>
+									</li>
+									<li class="mui-table-view-cell mui-collapse">
+										<a class="mui-navigate-right" href="#">精炼与附魔</a>
+										<div class="mui-collapse-content">
+											 <div class="mui-input-row mui-input-range field-contain">
+									            <div style="">
+									                <label >精炼：</label>
+									                <input type="text" id='field-range-input' value=''>
+									            
+									                <input type="range" id='field-range' value="" min="0" max="" />
+									            </div>
+									            <div id="fmsele">
+									            	<select id='showfmd' class="mui-btn mui-btn-block" type='button' style="text-align: center;width: 80%;padding:10px 0;margin: 0 auto;background: #007AFF;border-radius: 6px;color: #F0F0F0;">
+									            		<option value="0">选择附魔</option>
+									            	</select>
+									            </div>
+									        </div> 
+										</div>
+									</li>
+									<li id="xqli" class="mui-table-view-cell mui-collapse">
+										<a class="mui-navigate-right" href="#">镶嵌</a>
+										<div id="xqn" class="mui-collapse-content">
+											
+										</div>
+									</li>
+									<li class="mui-table-view-cell mui-collapse">
+										<a class="mui-navigate-right" href="#">五彩石</a>
+										<div class="mui-collapse-content">
+										<select id='wcssele1' class="mui-btn mui-btn-block" type='button' style="text-align: center;width: 90%;padding:8px 0;margin: 2px auto;background: #007AFF;border-radius: 6px;color: #F0F0F0;">
+									    <option value="0">选择第一属性</option>
+									    </select>
+									    <select id='wcssele2' class="mui-btn mui-btn-block" type='button' style="text-align: center;width: 90%;padding:8px 0;margin: 2px auto;background: #007AFF;border-radius: 6px;color: #F0F0F0;">
+									    <option value="0">选择第二属性</option>
+									    </select>
+									    <select id='wcssele3' class="mui-btn mui-btn-block" type='button' style="text-align: center;width: 90%;padding:8px 0;margin: 2px auto;background: #007AFF;border-radius: 6px;color: #F0F0F0;">
+									    <option value="0">选择第三属性</option>
+									    </select>
+									    <select id='wcssele4' class="mui-btn mui-btn-block" type='button' style="text-align: center;width: 90%;padding:8px 0;margin: 2px auto;background: #007AFF;border-radius: 6px;color: #F0F0F0;">
+									    <option value="0">选择等级</option>
+									    </select>
+									    <div id="wcsjs"></div>
+									    </div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div id="xszb" class="mui-content shouzb">
+							
+							
+						</div>			
+					</div>
+				</div>
+				<!-- off-canvas backdrop -->
+				<div class="mui-off-canvas-backdrop"></div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script>
+			//数组 字符串 操作。。。。。。。。。。。。。。。。。。。。。。
+			
+			function sortquality(x, y) { //数组排序sort
+				return (x.quality < y.quality) ? -1 : 1
+			}
+			function jsonDeweight(arr){
+				if(arr.length==0) return []
+			  var res=[arr[0]]
+			  for (var i = 1; i < arr.length; i++) {
+			    var repeat = false;
+			    for (var j = 0; j < res.length; j++) {
+			      if (JSON.stringify(arr[i])==JSON.stringify(res[j])) {
+			        repeat = true;
+			        break;
+			      }
+			    }
+			    if (!repeat) {
+			      res.push(arr[i]);
+			    }
+			  }
+			  return res;
+			
+			}
+			
+			function arrxtgs(arr,d){
+			  var n=0
+			  if(arr.length==0) return n
+			  for(var i=0;i<arr.length;i++){
+			    if(arr[i]==d){
+			      n++
+			    }
+			  }
+			  return n
+			
+			}
+			function splicearray(arr, val) {
+				var t
+				if (arr.length > 0) {
+					for (var i = 0; i < arr.length; i++) {
+						if (arr[i].buweiid == val) {
+							t = i
+							arr.splice(t, 1);
+						} else {
+							t = -1
+						}
+					}
+				}
+			}
+			mui.init();
+			//侧滑容器父节点
+			var offCanvasWrapper = mui('#offCanvasWrapper');
+			//主界面容器
+			var offCanvasInner = offCanvasWrapper[0].querySelector('.mui-inner-wrap');
+			//菜单容器
+			var offCanvasSide = document.getElementById("offCanvasSide");
+			if (!mui.os.android) {
+				document.getElementById("move-togger").classList.remove('mui-hidden');
+				var spans = document.querySelectorAll('.android-only');
+				for (var i = 0, len = spans.length; i < len; i++) {
+					spans[i].style.display = "none";
+				}
+			}
+			//移动效果是否为整体移动
+			var moveTogether = false;
+			//侧滑容器的class列表，增加.mui-slide-in即可实现菜单移动、主界面不动的效果；
+			var classList = offCanvasWrapper[0].classList;
+			offCanvasWrapper[0].insertBefore(offCanvasSide, offCanvasWrapper[0].firstElementChild);
+			classList.add('mui-scalable');
+			//页面展现开始。。。。。。。。。。。。。。。。。。
+			
+			
+			function show() {
+				cmf.allzb = []
+				cmf.zbname = []
+				var t = ''
+				var y = ''
+				var zhiye = [{
+					py: 'bingxin',
+					hz: '冰心',
+					pc: 'ng1public',
+					fm:'ngfm1'
+				}, {
+					py: 'dujing',
+					hz: '毒经',
+					pc: 'ng1public',
+					fm:'ngfm1'
+				}, {
+					py: 'zixia',
+					hz: '紫霞',
+					pc: 'ng1public',
+					fm:'ngfm1'
+				}, {
+					py: 'mowen',
+					hz: '莫问',
+					pc: 'ng1public',
+					fm:'ngfm1'
+				}, {
+					py: 'huajian',
+					hz: '花间',
+					pc: 'ng2public',
+					fm:'ngfm2'
+				}, {
+					py: 'yijin',
+					hz: '易经',
+					pc: 'ng2public',
+					fm:'ngfm2'
+				}, {
+					py: 'fenying',
+					hz: '焚影',
+					pc: 'ng2public',
+					fm:'ngfm2'
+				}, {
+					py: 'tianluo',
+					hz: '天罗',
+					pc: 'ng2public',
+					fm:'ngfm2'
+				}, {
+					py: 'lijing',
+					hz: '离经',
+					pc: 'zlpublic',
+					fm:'zlfm'
+				}, {
+					py: 'yunchang',
+					hz: '云裳',
+					pc: 'zlpublic',
+					fm:'zlfm'
+				}, {
+					py: 'butian',
+					hz: '补天',
+					pc: 'zlpublic',
+					fm:'zlfm'
+				}, {
+					py: 'xiangzhi',
+					hz: '相知',
+					pc: 'zlpublic',
+					fm:'zlfm'
+				}, {
+					py: 'taixu',
+					hz: '太虚',
+					pc: 'wg1public',
+					fm:'wgfm1'
+				}, {
+					py: 'cangjian',
+					hz: '藏剑',
+					pc: 'wg1public',
+					fm:'wgfm1'
+				}, {
+					py: 'fenshan',
+					hz: '分山',
+					pc: 'wg1public',
+					fm:'wgfm1'
+				}, {
+					py: 'jingyu',
+					hz: '惊羽',
+					pc: 'wg2public',
+					fm:'wgfm2'
+				}, {
+					py: 'aoxue',
+					hz: '傲雪',
+					pc: 'wg2public',
+					fm:'wgfm2'
+				}, {
+					py: 'xiaochen',
+					hz: '笑尘',
+					pc: 'wg2public',
+					fm:'wgfm2'
+				}, {
+					py: 'tielao',
+					hz: '铁牢',
+					pc: 'mtpublic',
+					fm:'mtfm'
+				}, {
+					py: 'xisui',
+					hz: '洗髓',
+					pc: 'mtpublic',
+					fm:'mtfm'
+				}, {
+					py: 'tiegu',
+					hz: '铁骨',
+					pc: 'mtpublic',
+					fm:'mtfm'
+				}, {
+					py: 'mingzun',
+					hz: '明尊',
+					pc: 'mtpublic',
+					fm:'mtfm'
+				}]
+				for (var i = 0; i < zhiye.length; i++) {
+					t += '<li class="mui-table-view-cell" mp=' + zhiye[i].py + '|' + zhiye[i].pc +'|'+zhiye[i].fm+ '>' + '<a class="mui-navigate-right">' + zhiye[i].hz + '</a>' + '</li>'
+				}
+				for (var j = 0; j < cmf.buwei.length; j++) {
+					y += '<button id="' + cmf.buwei[j].id + '" type="button" class="mui-btn xzzb" tp="' + cmf.buwei[j].tp + '">' + cmf.buwei[j].mz + '</button>'
+				}
+				document.getElementById("buwei").innerHTML = y
+				document.getElementById("zhiye").innerHTML = t
+			}
+			show()
+				//页面展现结束。。。。。。。。。。。。。。。。。。
+				//事件操作开始。。。。。。。。。。。。。。。。。。。。。。。。。。。.
+			mui('#zhiye').on('tap', 'li', function(e) {
+				offCanvasWrapper.offCanvas('close');
+				adshow()
+				jQuery(".shouzb").html('')
+				jQuery('.xzzb').removeClass('xqhbtn activebtn')
+				cmf.zbobj = [] //部位装备总数组
+				cmf.zbname = [] //所选装备名字
+				cmf.allvu = [] //所选部位装备数组
+				cmf.alldn=[]
+				$rootScope={}
+				$rootScope.results={}
+				cmf.allfm =[]//所有附魔
+				cmf.txsx=[]//特效的属性1
+				cmf.allzbsx={}//所有装备加起来的属性
+				//var sdnn=["score","spunk", "spirit", "agility", "strength", "physicsShield", "magicShield", "dodge", "parryBase", "parryValue", "toughness", "attack", "heal", "crit", "critEffect", "overcome", "acce", "hit", "strain", "huajing", "threat"]
+				cmf.allwcs={}//所有五彩石
+				cmf.wcsobj={}//所选五彩石
+				//cmf.xqnum=0//镶嵌的五行石数目
+				cmf.wxsjs=[]//镶嵌的五行石信息
+				var jsd
+				cmf.texiao=[]//特效装备
+				$("#userResult").empty()
+				var ur = this.getAttribute('mp').split('|')
+				var ur1 = '../jsondate/' + ur[0] + '.json'
+				var ur2 = '../jsondate/' + ur[1] + '.json'
+				var ur3= '../jsondate/' + ur[2] + '.json'
+				var ur4= '../jsondate/wcs/' + ur[0] + '.json'
+				cmf.menpaitype=menpaiList[ur[0]].type
+				cmf.jszhiye=menpaiList[ur[0]]
+				cmf.allzbsx.mp=ur[0]
+				cmf.allzbsx.xinfa=ur[1]
+				mui.getJSON(ur1, function(data) {
+					cmf.allzb = data
+					setTimeout(function() {
+						mui.getJSON(ur2, function(data2) {
+							cmf.allzb = cmf.allzb.concat(data2)
+							cmf.allzb = cmf.allzb.sort(sortquality)
+						})
+					}, 100)
+				})
+				mui.getJSON(ur3, function(data) {
+					cmf.allfm = data
+					//console.log(JSON.stringify(cmf.allfm))
+				})
+				mui.getJSON(ur4, function(data) {
+					cmf.allwcs = data
+					showwcs()
+					//console.log(JSON.stringify(cmf.allfm))
+				})
+				
+			});
+			
+			
+			mui('#buwei').on('tap', 'button', function(e) { //点击装备部位后
+				if (cmf.allzb.length < 1) {
+					mui.alert('请向右滑动选择门派')
+					return
+				}
+				adshow()
+				jQuery('#delecmf1').remove() //去除原始dialog
+				jQuery('#delecmf2').remove()
+				cmf.zbobj = []
+				cmf.zbname = []
+				
+				jQuery('.xzzb').removeClass('activebtn')
+				var _this = this;
+				
+				for (var nl = 0; nl < cmf.allvu.length; nl++) {
+					if (cmf.allvu[nl].buweiid == _this.id) {
+						
+						showzbxs(cmf.allvu[nl].zbobj, 2,cmf.allvu[nl].jldj,cmf.allvu[nl].xqdj,cmf.allvu[nl].fmid)
+					}
+				}
+				cmf.btnid = _this.id
+				$(_this).addClass('activebtn')
+				var tp = this.getAttribute('tp')
+				cmf.ttpp=tp
+				var ttsx=[{yw: 'physicsShield',zw: '外防'}, {yw: 'magicShield',zw: '内防'}, {yw: 'dodge',zw: '闪避'}, {yw: 'parryBase',zw: '招架'}, {yw: 'parryValue',zw: '拆招'}, {yw: 'toughness',zw: '御劲'},  {yw: 'heal',zw: '治疗'}, {yw: 'crit',zw: '会心'}, {yw: 'overcome',zw: '破防'}, {yw: 'acce',zw: '加速'}, {yw: 'hit',zw: '命中'},{yw: 'huajing',zw: '化劲'}]
+				for (var i = 0; i < cmf.allzb.length; i++) {
+					
+					if (cmf.allzb[i].type == tp) {
+						var sxmz=''
+						for(var j=0;j<ttsx.length;j++){
+							if(cmf.allzb[i][ttsx[j].yw]!=0){
+								sxmz+=ttsx[j].zw
+							}
+						}
+						
+						cmf.zbname[cmf.zbname.length] = cmf.allzb[i].name + cmf.allzb[i].quality+sxmz
+						cmf.zbobj[cmf.zbobj.length] = cmf.allzb[i]
+					}
+				}
+				var fmobj=[]
+				var fmobjname=[]
+				for (var j= 0; j < cmf.allfm.length; j++) {
+						if (cmf.allfm[j].type == tp) {
+							fmobj[fmobj.length]=cmf.allfm[j]
+							fmobjname[fmobjname.length]=cmf.allfm[j].name
+						}
+					}
+				
+				
+				showfm(fmobj)
+				
+				showzb()
+			})
+			
+		
+			
+			/*document.getElementById('offCanvasHide').addEventListener('tap', function() {
+				var tt = new Date()
+				console.log(tt.getTime())
+				mui.getJSON('../jsondate/testtime.json', function(data) {
+						var t = ''
+						for (var i = 0; i < data.length; i++) {
+							t += data[i].name + '|'
+						}
+						var ii = new Date()
+						console.log(ii.getTime())
+					})
+					//getdata(cmf)
+				offCanvasWrapper.offCanvas('close');
+			});*/
+			//主界面和侧滑菜单界面均支持区域滚动；
+			mui('#offCanvasSideScroll').scroll();
+			mui('#offCanvasContentScroll').scroll();
+			//实现ios平台原生侧滑关闭页面；
+			if (mui.os.plus && mui.os.ios) {
+				mui.plusReady(function() { //5+ iOS暂时无法屏蔽popGesture时传递touch事件，故该demo直接屏蔽popGesture功能
+					plus.webview.currentWebview().setStyle({
+						'popGesture': 'none'
+					});
+				});
+			}
+			
+			function showwcs(){
+				var allwcsobj=cmf.allwcs
+				var t='<option value="0">选择第一属性</option>'
+				jQuery.each(allwcsobj,function(k,v){
+					t+='<option value="'+k+'">'+k+'</option>'
+				})
+				var sel1=''
+				var sel2=''
+				var sel3=''
+				var sel4=''
+				jQuery('#wcssele1').html(t)
+				document.getElementById("wcssele1").addEventListener('change',function(){
+					//if(this.value==0) continue
+					jQuery('#wcssele3').html('<option value="0">选择第三属性</option>')
+					sel1=this.value
+					var data=allwcsobj[sel1]
+					var wscstr2='<option value="0">选择第二属性</option>'
+					jQuery.each(data,function(k,v){
+						wscstr2+='<option value="'+k+'">'+k+'</option>'
+					})
+					jQuery('#wcssele2').html(wscstr2)
+				})
+				document.getElementById("wcssele2").addEventListener('change',function(){
+					sel2=this.value
+					var data=allwcsobj[sel1][sel2]
+					var wscstr3='<option value="0">选择第三属性</option>'
+					jQuery.each(data,function(k,v){
+						wscstr3+='<option value="'+k+'">'+k+'</option>'
+					})
+					jQuery('#wcssele3').html(wscstr3)
+				})
+				document.getElementById("wcssele3").addEventListener('change',function(){
+					sel3=this.value
+					var data=allwcsobj[sel1][sel2][sel3]
+					var wscstr4='<option value="0">选择等级</option>'
+					jQuery.each(data,function(k,v){
+						wscstr4+='<option value="'+k+'">'+k+'</option>'
+					})
+					jQuery('#wcssele4').html(wscstr4)
+				})
+				var wcschan=function(){
+					
+					sel4=document.getElementById("wcssele4").value
+					var wcsobj=allwcsobj[sel1][sel2][sel3][sel4]
+					if(wcsobj!=undefined){
+						zliwcs(wcsobj)
+					}
+					
+				}
+				jQuery("#wcssele4").unbind()
+				jQuery("#wcssele4").on('change',wcschan)
+				
+				/*
+				document.getElementById("wcssele4").addEventListener('change',function(){
+					sel4=this.value
+					var wcsobj=allwcsobj[sel1][sel2][sel3][sel4]
+					if(wcsobj!=undefined){
+						zliwcs(wcsobj)
+					}
+					//console.log(JSON.stringify(cmf.wcsobj))
+					
+				})*/
+				
+			}
+			function zliwcs(a){//五彩石处理
+				if(a.attr[0].attribute.indexOf('精简')>-1){
+					var c = "jing"
+					a.type=c
+					var d = ["体质", "元气", "根骨", "力道", "身法", "抽蓝", "吸血", "移动速度"]
+					var e = a.attr[2].number / 10.24
+					var numberToShow = e.toFixed(0)
+					var k = ""
+					var l=0
+					var f = ["体质提高" + numberToShow + "%", "元气提高" + numberToShow + "%", "根骨提高" + numberToShow + "%","力道提高" + numberToShow + "%", "身法提高" + numberToShow + "%", "命中后抽取目标内力" + numberToShow + "%", "命中后抽取目标气血" + numberToShow + "%", "移动速度提高" + numberToShow + "%"]
+					var g = ["body", "spunk", "spirit","strength","agility", "", "", ""]
+					for( h = 0; h < d.length; h++){
+					    if( a.attr[2].attribute.indexOf(d[h]) >= 0){
+					      a.attr[2].desc = f[h]
+					      a.attr[2].prefix = g[h]
+							
+					    }
+					}
+					for (dh = 1; 3 > dh; dh++){
+						l = a.attr[dh].number / 10.24
+					 	l = l.toFixed(0)
+						if(a.attr[dh].attribute.indexOf("会心") >= 0){
+					 		a.attr[dh].desc = "全会心等级提高" + a.attr[dh].number
+					 		a.attr[dh].prefix = "crit"
+					 	}
+					 	if(a.attr[dh].attribute.indexOf("会效") >= 0){
+					 		a.attr[dh].desc = "全会心效果等级提高" + a.attr[dh].number
+					 		a.attr[dh].prefix = "critEffect"
+					 	}
+					 	if(a.attr[dh].attribute.indexOf("全属性") >= 0){
+					 		a.attr[dh].desc = "全属性提高" + a.attr[dh].number
+					 		a.attr[dh].prefix = "body/spunk/spirit/strength/agility"
+					 	}
+					 	if( a.attr[dh].attribute.indexOf("治疗") >= 0){
+					 		a.attr[dh].desc = "治疗效果提高" + l + "%"
+					 	}
+					 	if(a.attr[dh].attribute.indexOf("仇恨") >= 0){
+					 		a.attr[dh].desc = "招式产生的威胁提高" + l + "%"
+					 	}
+					}
+					a.attr.splice(0,1)
+				}else{
+				var d = ["攻击", "治疗", "会心", "会效", "命中", "破防", "急速", "无双", "元气", "根骨", "力道", "身法", "化劲", "御劲", "回蓝", "外防", "内防", "闪避", "招架", "拆招", "威胁", "血上限", "回血速度", "体质", "武器伤害"]
+				var f = ["攻击提高", "治疗成效提高", "会心等级提高", "会心效果等级提高", "命中等级提高", "破防提高", "急速等级提高", "无双等级提高", "元气+", "根骨+", "力道+", "身法+", "化劲等级提高", "御劲等级提高", "回蓝速度提高", "外功防御等级提高", "内功防御等级提高", "闪避等级提高", "招架等级提高", "拆招值提高", "招式产生的威胁变化", "额外提高气血上限", "每秒气血恢复提升", "体质+", "武器伤害提高"]
+				var g = ["attack", "heal", "crit", "critEffect", "hit", "overcome", "acce", "strain", "spunk", "spirit", "strength", "agility", "huajing", "toughness", "", "physicsShield", "magicShield", "dodge", "parryBase", "parryValue", "threat", "life", "", "body", ""]
+				var m = ["阳性", "阴性", "混元", "毒性", "内功", "外功"]
+				var n = ["阳性内功", "阴性内功", "混元内功", "毒性内功", "内功", "外功"]
+				if(["spirit", "spunk", "hps","t"].indexOf(cmf.menpaitype) >= 0) c = "nei"
+				if(["agility", "strength"].indexOf(cmf.menpaitype) >= 0) c = "wai"
+				a.type=c
+				for(var h=0;h<3;h++){
+					for (o = 0; o < d.length; o++) {
+						for (p = "", q = 0; q < m.length; q++) if (a.attr[h].attribute.indexOf(m[q]) >= 0) {
+	               			p = n[q];
+	               			break
+	            		}
+						if(a.attr[h].attribute.indexOf(d[o]) >= 0 ){
+							a.attr[h].desc = p + f[o] + a.attr[h].number, a.attr[h].prefix = g[o]
+						}
+					}
+				}
+				
+				}
+				
+				cmf.wcsobj=a
+				if(cmf.allvu.length>0){
+					for (var nl = 0; nl < cmf.allvu.length; nl++) {
+						if (cmf.allvu[nl].buweiid == cmf.btnid) {
+							showzbxs(cmf.allvu[nl].zbobj, 1,cmf.allvu[nl].jldj,cmf.allvu[nl].xqdj,cmf.allvu[nl].fmid)
+						}
+					}
+				}
+				
+			}
+			function showzb() { //装备过滤
+				var ob = cmf.zbname
+					//普通示
+				var userPicker = new mui.PopPicker();
+				userPicker.setData(ob);
+				var showUserPickerButton = document.getElementById('showUserPicker');
+				var userResult = document.getElementById('userResult');
+				showUserPickerButton.addEventListener('tap', function(event) {
+					jQuery('.mui-backdrop').remove()
+						//alert(cmf.zbname.length)
+					if (cmf.zbname.length == 0) {
+						return false
+					}
+					userPicker.show(function(items) {
+						userResult.innerText = JSON.stringify(items[0]).replace('"', '').replace('"', '');
+						
+						changeres(items)
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+					});
+				}, false);
+				//-----------------------------------------
+			}
+			
+			function showfm(fmobj){
+				var fmname=[]
+				
+				var t='<option value="0">选择附魔</option>'
+					for(var j=0;j<fmobj.length;j++){
+						t+='<option value="'+fmobj[j].P_ID+'">'+fmobj[j].name+'</option>'
+				}
+				
+			//	var userPicker = new mui.PopPicker();.
+				//userPicker.setData(fmname);
+				var fmbun=document.getElementById('showfmd');
+				fmbun.innerHTML=t
+				
+				var chanfms=function(){
+					console.log(111)
+					var fmidh=fmbun.value
+					for (var nl = 0; nl < cmf.allvu.length; nl++) {
+						if (cmf.allvu[nl].buweiid == cmf.btnid) {
+							
+							showzbxs(cmf.allvu[nl].zbobj, 1,cmf.allvu[nl].jldj,cmf.allvu[nl].xqdj,fmidh)
+						}
+					}
+					
+					
+				}
+				jQuery('#showfmd').unbind()
+				//fmbun.removeEventListener('change',chanfms)
+				//fmbun.addEventListener('change', chanfms);
+				jQuery('#showfmd').on('change',chanfms)
+				
+			}
+			
+			function changfm(fmname){
+				jQuery('.mui-backdrop').remove()
+				console.log(JSON.stringify(fmname))
+			}
+			
+			function changeres(na) { //装备变化后
+				jQuery('.mui-backdrop').remove()
+				var zbobj = cmf.zbobj
+				var ttsx=[{yw: 'physicsShield',zw: '外防'}, {yw: 'magicShield',zw: '内防'}, {yw: 'dodge',zw: '闪避'}, {yw: 'parryBase',zw: '招架'}, {yw: 'parryValue',zw: '拆招'}, {yw: 'toughness',zw: '御劲'},  {yw: 'heal',zw: '治疗'}, {yw: 'crit',zw: '会心'}, {yw: 'overcome',zw: '破防'}, {yw: 'acce',zw: '加速'}, {yw: 'hit',zw: '命中'},{yw: 'huajing',zw: '化劲'}]
+				for (var i = 0; i < zbobj.length; i++) {
+					var sxmz=''
+						for(var j=0;j<ttsx.length;j++){
+							if(zbobj[i][ttsx[j].yw]!=0){
+								
+								sxmz+=ttsx[j].zw
+							}
+						}
+						
+						
+					if (zbobj[i].name + zbobj[i].quality+sxmz== na) {
+						showzbxs(zbobj[i], 1)
+					}
+				}
+			}
+
+			function showzbxs(obj, typedn,jldj,xq,fmid) {
+				cmf.txsz=[]//镶嵌的数值	
+				var sjsx = [{
+					yw: 'spunk',
+					zw: '元气'
+				}, {
+					yw: 'spirit',
+					zw: '根骨'
+				}, {
+					yw: 'agility',
+					zw: '身法'
+				}, {
+					yw: 'strength',
+					zw: '力道'
+				}]
+				var qisx = [{
+					yw: 'physicsShield',
+					zw: '外功防御等级'
+				}, {
+					yw: 'magicShield',
+					zw: '内功防御等级'
+				}, {
+					yw: 'dodge',
+					zw: '闪避等级'
+				}, {
+					yw: 'parryBase',
+					zw: '招架等级'
+				}, {
+					yw: 'parryValue',
+					zw: '拆招等级'
+				}, {
+					yw: 'toughness',
+					zw: '御劲等级提高'
+				}, {
+					yw: 'attack',
+					zw: '攻击'
+				}, {
+					yw: 'heal',
+					zw: '治疗成效'
+				}, {
+					yw: 'crit',
+					zw: '会心等级'
+				}, {
+					yw: 'critEffect',
+					zw: '会心效果'
+				}, {
+					yw: 'overcome',
+					zw: '破防等级'
+				}, {
+					yw: 'acce',
+					zw: '加速等级'
+				}, {
+					yw: 'hit',
+					zw: '命中'
+				}, {
+					yw: 'strain',
+					zw: '无双'
+				}, {
+					yw: 'huajing',
+					zw: '化劲'
+				}, {
+					yw: 'threat',
+					zw: '招式产生的威胁'
+				}]
+				if(jldj==undefined){//精炼
+					var strengthen = obj.strengthen - 0
+				}else{
+					var strengthen=jldj
+				}
+				if(typedn!=3){
+					
+					jQuery("#field-range-input").val(strengthen)
+				}
+				
+				jQuery('#field-range').val(strengthen).attr('max',obj.strengthen)
+				var sjsxi = ''
+				var qisxi = ''
+				var gyls = ''
+				var xiangqian = obj.xiangqian
+				var stornstr = ''
+				var sjywi = '' //体质 等属性值
+				var texiaostr=''
+				var f = {}
+				cmf.atri=[]//五彩石效果
+				if(xq==undefined){
+					var xqs=xiangqian.substring(0,1)
+					var s='`'
+					for(var sx=0;sx<xqs;sx++){
+						s+=6
+						cmf.txsz[cmf.txsz.length]=6
+					}
+					
+					xiangqian=xiangqian+s
+				}else{
+					var s='`'
+					for(var sx=0;sx<xq.length;sx++){
+						s+=xq[sx]
+						cmf.txsz[cmf.txsz.length]=xq[sx]
+					}
+					xiangqian=xiangqian+s
+				}
+				
+					//alert(cmf.btnid)
+				jQuery('#' + cmf.btnid).addClass('xqhbtn')
+					//jQuery('.xzzb[tp='+obj.type+']').addClass('xqhbtn')
+				var strengthenstr = ''
+				
+				for (var i = 0; i < strengthen; i++) {
+					strengthenstr += '<span class="star">★</span>'
+				}
+				jQuery('#zbname').html(obj.name)
+				jQuery('#quality').html('品质等级' + obj.quality)
+				jQuery('#score').html('装备分数<span class="score">' + obj.score+'</span>(+<span class="score">'+Math.round((obj.score - 0) * cmf.jinglianup[strengthen])+'</span>+<span id="xqzfz" class="score">'+xiangqian.substring(0, 1)*16+'</span>)')
+				jQuery('#dropSource').html('获取:' + obj.dropSource)
+				jQuery('#strengthen').html(strengthenstr)
+				jQuery('#jinglian').html('精炼等级：' + strengthen + '/' + obj.strengthen)
+				if (obj.basicPhysicsShield == 0) {
+					jQuery('#wgShield').parent().css('display', 'none')
+				} else {
+					jQuery('#wgShield').html('外功防御等级<span class="physicsShield">' + obj.basicPhysicsShield + '</span>').parent().css('display', '')
+				}
+				if (obj.basicMagicShield == 0) {
+					jQuery('#ngShield').parent().css('display', 'none')
+				} else {
+					jQuery('#ngShield').html('内功防御等级<span class="magicShield">' + obj.basicMagicShield + '</span>').parent().css('display', '')
+				}
+				if (obj.body == 0) {
+					jQuery('#tizhi').parent().css('display', 'none')
+				} else {
+					var jinglianbody = Math.round((obj.body - 0) * cmf.jinglianup[strengthen])
+					jQuery('#tizhi').html('体质+<span class="body">' + obj.body + '</span>').parent().css('display', '')
+					jQuery('#tizhi').next('span').html('(+<span class="body">' + jinglianbody + '</span>)')
+				}
+				//根骨 元气 力道 身法开始
+				for (var y = 0; y < sjsx.length; y++) {
+					var sjyw = sjsx[y].yw
+					var sjzw = sjsx[y].zw
+					if (obj[sjyw] != 0) {
+						sjsxi = sjzw + '+<span class="' + sjyw + '">' + obj[sjyw] + '</span>'
+						sjywi = obj[sjyw] - 0
+							//jQuery('#ggjbsx').html(sjzw+'+'+obj[sjyw]).parent().css('display','')
+						gyls = sjyw
+					}
+				}
+				if (sjsxi == '') {
+					jQuery('#ggjbsx').parent().css('display', 'none')
+				} else {
+					var jingliantigao = Math.round(sjywi * cmf.jinglianup[strengthen])
+					jQuery('#ggjbsx').html(sjsxi).parent().css('display', '')
+					jQuery('#ggjbsx').next('span').html('(<span class="' + gyls + '">+' + jingliantigao + '</span>)')
+				}
+				//根骨 元气 力道 身法结束
+				for (var u = 0; u < cmf.tjmp.length; u++) {
+					if (obj.xinfatype == cmf.tjmp[u].xinfatype) {
+						jQuery('#xinfatj').html('推荐门派：' + cmf.tjmp[u].mtpublic)
+					}
+				}
+				//绿色字属性开始
+			
+				for (var p = 0; p < qisx.length; p++) {
+					if (obj[qisx[p].yw] != 0) {
+						var num = obj[qisx[p].yw] - 0
+						var zw = qisx[p].zw
+						qisxi += '<li class="ep_privateAttributes qisx">' + zw + '提高<span class="' + qisx[p].yw + '">' + num + '</span><span id="' + qisx[p].yw + '" class="qingse">(+<span class="' + qisx[p].yw + '">' + Math.round(num * cmf.jinglianup[strengthen]) + '</span>)</span></li>'
+					}
+				}
+				jQuery('#qtsx').html(qisxi)
+					//绿色字属性结束
+					//jQuery('#ngShield').html(obj.basicMagicShield)
+				for (var j = 0; j < cmf.buwei.length; j++) {
+					if (obj.type == cmf.buwei[j].tp) {
+						jQuery('#weizhi').html(cmf.buwei[j].mz)
+					}
+				}
+				var xqstr=''
+				var xqzbf=0
+				var wxsnum=0
+				var xqdyz=[0,3,5,8,11,13,16,21,27]
+				var yipie=xiangqian.indexOf('`')+1
+				for (var p = 0; p < xiangqian.substring(0, 1); p++) {
+					var e = xiangqian.substring(3 * p + 1, 3 * p + 4)
+					var xqsz=xiangqian.substring(p +yipie, p + 1+yipie)
+					xqzbf+=xqdyz[xqsz]
+					f.typeId = e.substring(0, 1)
+					f.attrId = e.substring(1, 3)
+					f.attrDesc = cmf.stone[Number(f.attrId)].desc//"根骨+"
+					f.attrPrefix = cmf.stone[Number(f.attrId)].prefix//prefix: "spirit",
+					f.sixattr = cmf.stone[Number(f.attrId)].uptype//uptype: 0
+					f.sixnum = cmf.stoneuptype[f.sixattr][xqsz]//数值
+					xqstr+='<div><img src="../images/stone'+xqsz+'.jpg" style="width:18px;vertical-align:middle;height:18px"><span style="vertical-align:middle"> ' + f.attrDesc + ' <span>' + f.sixnum + '</span></span></div>'
+						+ '<div style="margin:5px;0">'
+						+'<img class="xqxz" type="button" ty="1" sl="'+p+'" style="margin:2px;4px" src="../images/stone1.jpg" style="width:60%;">'
+						+'<img class="xqxz" type="button" ty="2" sl="'+p+'" style="margin:2px;4px" src="../images/stone2.jpg" style="width:60%;">'
+						+'<img class="xqxz" type="button" ty="3" sl="'+p+'" style="margin:2px;4px" src="../images/stone3.jpg" style="width:60%;">'
+		           		+'<img class="xqxz" type="button" ty="4" sl="'+p+'" style="margin:2px;4px" src="../images/stone4.jpg" style="width:60%;">'
+		           		+'</div>'
+		           		+'<div>'
+		           		+'<img class="xqxz" type="button" ty="5" sl="'+p+'" style="margin:2px;4px" src="../images/stone5.jpg" style="width:60%;">'
+		           		+'<img class="xqxz" type="button" ty="6" sl="'+p+'" style="margin:2px;4px" src="../images/stone6.jpg" style="width:60%;">'
+		           		+'<img class="xqxz" type="button" ty="7" sl="'+p+'" style="margin:2px;4px" src="../images/stone7.jpg" style="width：60%">'
+		           		+'<img class="xqxz" type="button" ty="8" sl="'+p+'" style="margin:2px;4px" src="../images/stone8.jpg" style="width:60%">'
+		       			+'</div>'
+						
+					stornstr += '<li class="ep_privateAttributes" ><img src="../images/stone'+xqsz+'.jpg" style="width:16px;vertical-align:middle"><span style="vertical-align:middle"> ' + f.attrDesc + ' <span class="' + f.attrPrefix + '">' + f.sixnum + '</span></span></li>'
+				}
+				jQuery('#xiangq').html(stornstr)
+				jQuery('#xqn').html(xqstr)
+				jQuery('#xqzfz').html(xqzbf)
+				
+				if (typedn == 1||typedn==3) {
+					splicearray(cmf.wxsjs,cmf.btnid)//
+					cmf.wxsjs.push({
+						'buweiid': cmf.btnid,
+						'num':xiangqian.substring(0, 1),
+						'level':cmf.txsz
+					})
+				}
+				if(!jQuery.isEmptyObject(cmf.wcsobj)){//五彩石属性计算
+					var flag=false
+					for(var i=0;i<cmf.allvu.length;i++){
+						if(cmf.allvu[i].buweiid=='wuqi'){
+							flag=true
+						}
+					}
+					if(obj.type==11||flag){
+						var num=0
+						var lev=0
+						var atr=cmf.wcsobj.attr
+						var atri=[]
+						jQuery.each(cmf.wxsjs,function(k,v){
+							num=num+parseInt(v.num)
+							var le=v.level
+							for(var i=0;i<le.length;i++){
+								lev+=parseInt(le[i])
+							}
+						})
+						
+						for(var h=0;h<atr.length;h++){
+							if(atr[h].neededStone<=num&&atr[h].neededLevel<=lev){
+								if(atr[h].prefix!=''&&atr[h].prefix){
+									cmf.atri.push(atr[h])
+								}
+							}
+						}
+						
+						
+					}
+					
+				}
+				
+				
+				if(obj.type==11){
+					if(jQuery.isEmptyObject(cmf.wcsobj)){//没有选五彩石
+						var wcsstr='<li><img src="../images/nullwcs.jpg" style="width:14px;"><span style="color:rgb(155, 155, 155)">&lt;只能镶嵌五彩石&gt</span></li>'
+						jQuery('#xiangq').append(wcsstr)
+					}else{
+						var wcsstr=''
+						var atr=cmf.wcsobj.attr
+						
+						for(var h=0;h<atr.length;h++){
+							if(atr[h].neededStone<=num&&atr[h].neededLevel<=lev){
+								
+								wcsstr+='<li><img src="../images/tou.jpg" style="width:14px;"><span style="color:rgb(0, 200, 72)">'+atr[h].desc+'</span></li>'
+							}else{
+								wcsstr+='<li><img src="../images/tou.jpg" style="width:14px;"><span style="color:rgb(155, 155, 155)">'+atr[h].desc+'</span></li>'
+							}
+							
+							
+						}
+						
+						jQuery('#xiangq').append(wcsstr)
+						
+					}
+					
+					
+				}
+				
+				
+				
+				if(obj.texiao!=0){//有特效的时候
+					
+					if(obj.texiao.type=='Collection'){
+						var zblen=obj.texiao.components
+						var nn=0
+						var eff=obj.texiao.effects//特效数目
+						var txs=[]
+						txs[0]=obj.type
+						if(cmf.texiao.length>0){
+							for(var txd=0;txd<cmf.texiao.length;txd++){
+								if(cmf.texiao[txd].txobj.id==obj.texiao.id){
+									txs.push(cmf.texiao[txd].type)
+								}
+							}
+						}
+						
+						if(typedn==2&&arrxtgs(txs,2)==3||typedn==1||typedn==3){
+							var jz=txs.indexOf("2")//戒指时
+							if(jz>-1){
+								txs[jz]="3"
+							}
+						}
+						
+					
+						texiaostr='<li class="" style="color: #ffff00;">'+obj.texiao.name+'<span id="texiaolen"></span></li>'
+						for(var fa=0;fa<zblen.length;fa++){
+							if(txs.indexOf(zblen[fa].positionId.toString())>-1){
+								texiaostr+='<li class="texiao2" style="" posiid='+zblen[fa].positionId+'>'+zblen[fa].equipName+'</li>'
+								nn++
+							}else{
+								texiaostr+='<li class="texiao1" style="" posiid='+zblen[fa].positionId+'>'+zblen[fa].equipName+'</li>'	
+							}
+								
+						}
+						
+						for(var iu=0;iu<cmf.txsx.length;iu++){
+							if(cmf.txsx[iu].id==obj.texiao.id){
+								cmf.txsx.splice(iu,1)
+							}
+						}
+					
+						for(var ha=0;ha<eff.length;ha++){
+							
+							if(nn>=eff[ha].conditionNum){
+								
+								texiaostr+='<li class="texiao2" style="">['+eff[ha].conditionNum+']'+eff[ha].desc+'</li>'
+								if(eff[ha].effectIndex){
+									
+									var obh={}
+									obh[eff[ha].effectIndex]=eff[ha].effectNum
+									obh['id']=obj.texiao.id
+									obh['num']=eff[ha].conditionNum
+									cmf.txsx.push(obh)
+								}
+							}else{
+								texiaostr+='<li class="texiao1" style="">['+eff[ha].conditionNum+']'+eff[ha].desc+'</li>'
+							}
+								
+						}
+					}else{//不是搭配特效时候
+						
+					}
+				}
+
+				if(fmid!=0&&fmid!=undefined){//附魔
+					var dmobjs
+					for(var w=0;w<cmf.allfm.length;w++){
+						if(cmf.allfm[w].P_ID==fmid){
+							dmobjs=cmf.allfm[w]
+						}
+					}
+					var tyd=dmobjs.desc.replace(/[0-9,]*/g,"")
+					var t='<li style="color: #00bfff;">'+tyd
+					//console.log(JSON.stringify(dmobjs))
+					jQuery.each(dmobjs,function(key,val){
+					  if(val!=0&&key!="P_ID"&&key!="type"&&val&&key!="xinfatype"&&!isNaN(val)){
+					   	t+='<span class="'+key+'">'+val+'</span>'
+					  }
+					})
+					t+='</li>'
+					jQuery('#fm').html(t)
+					
+					//console.log(JSON.stringify(dmobjs))
+				
+				}
+				
+				jQuery('#texiao').html(texiaostr)
+				if (typedn == 1||typedn==3) {
+					splicearray(cmf.allvu, cmf.btnid)//剔除 相同
+						//for(var jj=0;jj<cmf.allvu.length)
+					splicearray(cmf.alldn,cmf.btnid)//剔除 相同
+					splicearray(cmf.texiao,cmf.btnid)
+					//console.log(jQuery('#showfmd').val())
+					
+					cmf.allvu.push({
+						'buweiid': cmf.btnid,
+						'zbobj': obj,
+						'jldj':document.getElementById("field-range").value,
+						'xqdj':cmf.txsz,
+						'fmid':jQuery('#showfmd').val()
+					})
+					
+					if(obj.texiao!=0||obj.texiao.type=='Collection'){
+						cmf.texiao.push({
+							'buweiid': cmf.btnid,
+							'txobj':obj.texiao,
+							'type':obj.type,
+							'txid':obj.texiao.id
+						})
+						
+					}
+
+					zbjs(cmf.btnid, obj)
+					
+					
+				}
+				var xqxzclass=document.getElementsByClassName('xqxz')
+				for(var cl=0;cl<xqxzclass.length;cl++){
+					xqxzclass[cl].addEventListener('tap',function(){//镶嵌等级改变
+						var ty=this.getAttribute('ty')
+						var sl=this.getAttribute('sl')
+						var xqszarr=cmf.txsz
+						xqszarr[sl]=ty
+						//
+						for (var nl = 0; nl < cmf.allvu.length; nl++) {
+							if (cmf.allvu[nl].buweiid == cmf.btnid) {
+								
+								showzbxs(cmf.allvu[nl].zbobj, 1,cmf.allvu[nl].jldj,xqszarr,cmf.allvu[nl].fmid)
+							}
+						}
+						
+					})
+				}
+				
+				
+				
+			}
+			
+			function onejs(k) {//把显示的单个装备单个属性加起来
+				var val = 0
+				jQuery("." + k + "").each(function() {
+					val += parseInt(jQuery(this).html())
+				})
+				return val
+			}
+
+			function zbjs(btdid, obj) { //计算单个装备具体数值
+				
+				cmf.txsx=jsonDeweight(cmf.txsx)//去重相同
+				//console.log(JSON.stringify(cmf.txsx))
+				var tx=cmf.texiao
+				//console.log(JSON.stringify(tx))
+				var idarr=[]
+				for(var j=0;j<cmf.txsx.length;j++){//过滤特效
+					var n=0
+					var txid=cmf.txsx[j].id
+					for(var i=0;i<tx.length;i++){
+						if(tx[i].txobj.id==txid){
+							n++
+						}
+						
+					}
+					if(n<cmf.txsx[j].num){
+						cmf.txsx.splice(j,1)
+					}
+					//console.log(n)
+				}
+			//console.log(JSON.stringify(cmf.txsx))
+				/*
+				for(var i=0;i<tx.length;i++){
+					//console.log(JSON.stringify(tx[i].txobj))
+					for(var j=0;j<cmf.txsx.length;j++){
+						if(tx[i].txobj.id==cmf.txsx[j].id){
+							n++
+						}
+					}
+					
+					
+					//idarr.push()1
+				}*/
+				
+				//console.log(JSON.stringify(cmf.texiao))
+				//wconsole.log(cmf.texiao.length)
+				var sd = ["life","body","score","spunk", "spirit", "agility", "strength", "physicsShield", "magicShield", "dodge", "parryBase", "parryValue", "toughness", "attack", "heal", "crit", "critEffect", "overcome", "acce", "hit", "strain", "huajing", "threat"]
+				/*for (var i = 0; i < dd.length; i++) {
+					sd[sd.length] = dd[i].yw
+				}
+				console.log(sd)*/
+				var f = {}
+				
+				f.buweiid=btdid
+				f.P_ID=obj.P_ID
+				f.name=obj.name
+				f.xinfatype=obj.xinfatype
+				f.type=obj.type
+				for (var x = 0; x < sd.length; x++) {
+					var keyn = sd[x]
+				//	console.log(keyn)
+					var val=onejs(keyn)
+					f[keyn] =val
+				}
+				
+				//console.log(JSON.stringify(f))
+				cmf.alldn.push(f)
+				jsallsx()
+			
+			}
+			function jssuz(keyn){
+				var val=0
+				for(var j=0;j<cmf.alldn.length;j++){
+					val+=parseInt(cmf.alldn[j][keyn])	
+				}
+				return val
+			}
+			function jsallsx(){//计算所有装备加起来的总属性
+				var sd=["life","body","score","spunk", "spirit", "agility", "strength", "physicsShield", "magicShield", "dodge", "parryBase", "parryValue", "toughness", "attack", "heal", "crit", "critEffect", "overcome", "acce", "hit", "strain", "huajing", "threat"]
+				for(var i=0;i<sd.length;i++){
+					cmf.allzbsx[sd[i]]=parseInt(jssuz([sd[i]]))
+					
+				}
+				//console.log(JSON.stringify(cmf.jszhiye))
+				
+				szjs()
+			}
+			
+			//精炼开始。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+		
+			document.getElementById("field-range").addEventListener('input',function(){
+				var val=this.value;
+				 document.getElementById(this.id+'-input').value = val
+				for (var nl = 0; nl < cmf.allvu.length; nl++) {
+					if (cmf.allvu[nl].buweiid == cmf.btnid) {
+						//console.log(JSON.stringify(cmf.txsz))
+						showzbxs(cmf.allvu[nl].zbobj,3,val,cmf.txsz,cmf.allvu[nl].fmid)
+					}
+				}
+			//	console.log($rootScope.results.attack)
+			   	
+			  
+			   })
+			
+			
+			//精炼结束。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			function szjs(){
+				
+				//console.log(JSON.stringify(cmf.txsx))// [{"number":"33","neededAttribute":"全","neededStone":"11","neededLevel":"40","attribute":"混元·会心","desc":"混元内功会心等级提高33","prefix":"crit"}]
+				var sd = ["life","body","score","spunk", "spirit", "agility", "strength", "physicsShield", "magicShield", "dodge", "parryBase", "parryValue", "toughness", "attack", "heal", "crit", "critEffect", "overcome", "acce", "hit", "strain", "huajing", "threat"]
+				var txarr=cmf.txsx//搭配特效
+				var wcsarr=cmf.atri//五彩石特效
+				//console.log(JSON.stringify(txarr))
+				//console.log(JSON.stringify(wcsarr))
+				var row1,row2,row3,row4
+				var rows=[]
+				var c={}//装备搭配特效
+				var a=cmf.jszhiye//职业加成 {"name":"huajian","type":"spunk","baseAttack":355,"baseHit":42,"baseAttackPlus":1.95,"baseCritPlus":0,"baseCritEffPlus":0,"baseOvercomePlus":0.09,"baseHPlus":1.2,"baseMagicShield":28,"tixingOption":[1,1,1,1]}
+				var b=cmf.allzbsx//装备属性
+				var p={}//百分比加成
+				var o=Baseattr//全体基础
+				var type=a.type
+				for(var h=0;h<sd.length;h++){
+					if(b[sd[h]]==undefined){
+						b[sd[h]]=0
+					}
+					/*if($rootScope.results[sd[h]]==undefined){
+						$rootScope.results[sd[h]]=0
+					}
+					
+					if(c[sd[h]]==undefined){
+						c[sd[h]]=0
+					}*/
+				}
+				
+				//console.log(JSON.stringify(b))
+				if(txarr.length>0){
+					for(var i=0;i<txarr.length;i++){
+						for(var j=0;j<sd.length;j++){
+							if(parseInt(txarr[i][sd[j]])>0){
+								if(b[sd[j]]>0){
+									b[sd[j]]+=parseInt(txarr[i][sd[j]])
+								}else{
+									b[sd[j]]=parseInt(txarr[i][sd[j]])	
+								}
+							}
+						}
+					}
+				}
+				//console.log(JSON.stringify(c)) {"critEffect":101,"strain":101}
+				if(wcsarr.length>0){
+					for(var i=0;i<wcsarr.length;i++){
+						if(wcsarr[i]['prefix'].indexOf('/')==-1){
+							if(b[wcsarr[i]['prefix']]>0){
+								b[wcsarr[i]['prefix']]+=parseInt(wcsarr[i]['number'])
+							}else{
+								b[wcsarr[i]['prefix']]=parseInt(wcsarr[i]['number'])
+							}
+						}else{
+							var xieg=wcsarr[i]['prefix'].split('/')
+							var wssw=wcsarr[i]
+							for(var j=0;j<xieg.length;j++){
+								if(b[xieg[j]]>0){
+									b[xieg[j]]+=parseInt(wcsarr[i]['number'])
+								}else{
+									b[xieg[j]]=parseInt(wcsarr[i]['number'])
+								}
+							}
+						}
+					}
+					
+				}
+				//console.log(JSON.stringify(c))
+				
+			
+				$rootScope.results={}
+				
+				$rootScope.results.body = Math.floor((b.body+o.body)* (1 + (p.body || 0) / 100))
+			
+				$rootScope.results.life=Math.floor(b.life+(10 * $rootScope.results.body + 4159) * (1 + (p.life ||0 ) / 100) * (a.baseHPlus + (p.basicLife ||0 ) / 100) + $rootScope.results.body * (a.baseBodyPlus||0))
+				
+				$rootScope.results.spirit=Math.floor((b.spirit+o.spirit)*(1 + (p.spirit || 0) / 100))//根骨
+				
+				$rootScope.results.strength = Math.floor((b.strength + o.strength) * (1 + (p.strength||0) / 100)) //力道
+				//console.log(JSON.stringify(b))
+				$rootScope.results.agility = Math.floor((b.agility+ o.agility) * (1 + (p.agility||0) / 100)) 
+				
+				$rootScope.results.spunk = Math.floor((b.spunk  + o.spunk) * (1 + (p.spunk||0) / 100)) 
+				
+				if(type=="spirit"){//根骨
+					$rootScope.results.basicAttack=b.attack + a.baseAttack + .18 * $rootScope.results.spunk
+					$rootScope.results.basicAttack = Math.floor(($rootScope.results.basicAttack) * (1 + (p.basicAttack||0) / 100))//面板攻击
+					$rootScope.results.attack = Math.floor($rootScope.results.basicAttack * (1 + (p.attack||0)/ 100) + a.baseAttackPlus * $rootScope.results.spirit)
+			/*会心*/	$rootScope.results.crit = b.crit + (a.baseCrit||0) + Math.floor(a.baseCritPlus * $rootScope.results.spirit) + Math.floor(.3 * $rootScope.results.spirit)
+			
+			/*会效*/$rootScope.results.critEffect = b.critEffect+ Math.floor(a.baseCritEffPlus * $rootScope.results.spirit) + Math.floor(.15 * $rootScope.results.spirit)
+					
+			/*破防*/$rootScope.results.overcome = b.overcome + (a.baseOvercome||0) + a.baseOvercomePlus * $rootScope.results.spirit + .25 * $rootScope.results.spunk
+				}else if(type=="strength"){//力道
+					$rootScope.results.basicAttack = b.attack + a.baseAttack + .15 * $rootScope.results.strength
+					$rootScope.results.basicAttack = Math.floor(($rootScope.results.basicAttack) * (1 + (p.basicAttack||0) / 100))
+					$rootScope.results.attack = Math.floor($rootScope.results.basicAttack * (1 + (p.attack||0) / 100) + a.baseAttackPlus * $rootScope.results.strength)
+					$rootScope.results.crit = b.crit + (a.baseCrit||0) + Math.floor(a.baseCritPlus * $rootScope.results.strength) + Math.floor(.3 * $rootScope.results.agility)
+					$rootScope.results.critEffect = b.critEffect + Math.floor(a.baseCritEffPlus * $rootScope.results.strength) + Math.floor(.15 * $rootScope.results.agility)
+					$rootScope.results.overcome = b.overcome + (a.baseOvercome||0) + (a.baseOvercomePlus + .25) * $rootScope.results.strength
+				}else if(type=="agility"){//身法
+					$rootScope.results.basicAttack = b.attack + a.baseAttack + .15 * $rootScope.results.strength
+					$rootScope.results.basicAttack = Math.floor(($rootScope.results.basicAttack) * (1 + (p.basicAttack||0) / 100))
+					$rootScope.results.attack = Math.floor($rootScope.results.basicAttack * (1 + (p.attack||0) / 100) + a.baseAttackPlus * $rootScope.results.agility)
+					$rootScope.results.crit = b.crit + (a.baseCrit||0) + Math.floor((a.baseCritPlus||0) * $rootScope.results.agility) + Math.floor(.3 * $rootScope.results.agility)
+					$rootScope.results.critEffect = b.critEffect + Math.floor(((a.baseCritEffPlus||0) + .15) * $rootScope.results.agility)
+					$rootScope.results.overcome =b.overcome + (a.baseOvercome||0) + (a.baseOvercomePlus||0) * $rootScope.results.agility + .25 * $rootScope.results.strength
+				}else if(type=="spunk"){//元气
+					$rootScope.results.basicAttack = b.attack + a.baseAttack + .18 * $rootScope.results.spunk
+					$rootScope.results.basicAttack = Math.floor(($rootScope.results.basicAttack) * (1 + (p.basicAttack||0) / 100))
+					$rootScope.results.attack = Math.floor($rootScope.results.basicAttack * (1 + (p.attack||0) / 100) + a.baseAttackPlus * $rootScope.results.spunk ) 
+					$rootScope.results.crit = b.crit + (a.baseCrit||0) + Math.floor((a.baseCritPlus||0) * $rootScope.results.spunk) + Math.floor(.3 * $rootScope.results.spirit)
+					$rootScope.results.critEffect = b.critEffect+ Math.floor((a.baseCritEffPlus||0) * $rootScope.results.spunk) + Math.floor(.15 * $rootScope.results.spirit)
+					$rootScope.results.overcome =b.overcome + (a.baseOvercome||0) + a.baseOvercomePlus * $rootScope.results.spunk + .25 * $rootScope.results.spunk
+					if(a.name=="tianluo"){//天罗
+						$rootScope.results.crit =b.crit + a.baseCrit + Math.floor(a.baseCritPlus * $rootScope.results.spunk) + Math.floor(.3 * (b.agility+$rootScope.results.agility))
+						$rootScope.results.critEffect =b.critEffect+ Math.floor(a.baseCritEffPlus * $rootScope.results.spunk) + Math.floor(.15 * (b.agility+$rootScope.results.agility))
+						$rootScope.results.overcome = b.overcome  + (a.baseOvercome||0) +  Math.floor((a.baseOvercomePlus + .25) * $rootScope.results.spunk)
+					}
+				}else if(type=="hps"){
+					$rootScope.results.basicAttack = b.attack + .18 * $rootScope.results.spunk
+					$rootScope.results.attack = Math.floor($rootScope.results.basicAttack * (1 + (p.attack||0) / 100))
+					$rootScope.results.basicHeal = Math.floor((b.heal + a.baseHeal) * (1 + (p.basicHeal||0) / 100))
+					$rootScope.results.heal = Math.floor($rootScope.results.basicHeal * (1 + (p.heal||0) / 100) + a.baseHealPlus * $rootScope.results.spirit)
+					$rootScope.results.crit = b.crit + (a.baseCrit||0) + Math.floor(a.baseCritPlus * $rootScope.results.spirit) + Math.floor(.3 * $rootScope.results.spirit)
+					$rootScope.results.critEffect = b.critEffect  + Math.floor(a.baseCritEffPlus * $rootScope.results.spirit) + Math.floor(.15 * $rootScope.results.spirit)
+				}else if(type=="t"){
+					$rootScope.results.dodge = Math.floor((b.dodge + (a.baseDodge||0)) * (1 + (p.dodge||0) / 100) + $rootScope.results.body * (a.baseDodgePlus||0))
+					$rootScope.results.dodge = 100 * ($rootScope.results.dodge / ($rootScope.results.dodge + 2400.175))
+					$rootScope.results.dodge = $rootScope.results.dodge.toFixed(2)
+					$rootScope.results.parryBase = ((b.parryBase||0) + (a.baseParryBase||0)) * (1 + (p.parryBase||0) / 100) + $rootScope.results.body * (a.baseParryBasePlus||0)
+					$rootScope.results.parryBase = 100 * ($rootScope.results.parryBase / ($rootScope.results.parryBase + 1733.675)) + 3
+					$rootScope.results.parryBase = $rootScope.results.parryBase.toFixed(2)
+					$rootScope.results.parryValue = ((b.parryValue||0) + (a.baseParryValue||0)) * (1 + (p.parryValue||0) / 100) + $rootScope.results.body * (a.baseParryValuePlus||0)
+					if(a.name=="xisui"||a.name=="mingzu"){
+						$rootScope.results.basicAttack = b.attack + .18 * $rootScope.results.spunk
+						$rootScope.results.basicAttack = Math.floor(($rootScope.results.basicAttack) * (1 + (p.basicAttack||0) / 100))
+						$rootScope.results.attack = Math.floor($rootScope.results.basicAttack * (1 + (p.attack||0) / 100))
+						$rootScope.results.crit = b.crit + (a.baseCrit||0) + Math.floor(.3 * $rootScope.results.spirit)
+						$rootScope.results.critEffect = b.critEffect + Math.floor((a.baseCritEffPlus||0) * $rootScope.results.spirit) + Math.floor(.15 * $rootScope.results.spirit)
+						$rootScope.results.overcome =b.overcome + (a.baseOvercome||0) + .25 * $rootScope.results.spunk
+					}else if(a.name=="tiegu"||a.name=="tielao"){
+						$rootScope.results.basicAttack = b.attack + .15 * $rootScope.results.strength
+						$rootScope.results.basicAttack = Math.floor(($rootScope.results.basicAttack) * (1 + (p.basicAttack||0) / 100))
+						$rootScope.results.attack = Math.floor($rootScope.results.basicAttack * (1 + (p.attack||0) / 100))
+						
+					}
+					
+				}
+				
+				$rootScope.results.crit = $rootScope.results.crit / 41.43925
+				$rootScope.results.crit = $rootScope.results.crit.toFixed(2)
+				$rootScope.results.critEffect = $rootScope.results.critEffect / 15.066 + 175
+				$rootScope.results.critEffect = $rootScope.results.critEffect.toFixed(2)
+				$rootScope.results.overcome = Math.floor($rootScope.results.overcome)
+				$rootScope.results.overcomeRate = $rootScope.results.overcome / 36.16925
+				$rootScope.results.overcomeRate = $rootScope.results.overcomeRate.toFixed(0)
+				$rootScope.results.hit = Math.floor((b.hit + (a.baseHit||0)) * (1 + (p.hit||0) / 100))
+				$rootScope.results.hit = $rootScope.results.hit / 34.24725 + 90
+				$rootScope.results.hit = $rootScope.results.hit.toFixed(2)//命中
+				$rootScope.results.strain = Math.floor(b.strain * (1 + (p.strain||0) / 100))
+				$rootScope.results.strain = $rootScope.results.strain / 25.6835
+				$rootScope.results.strain = $rootScope.results.strain.toFixed(2)//无双
+				$rootScope.results.acceLevel = b.acce
+				$rootScope.results.acce = b.acce / 47.17425
+				$rootScope.results.acce = $rootScope.results.acce.toFixed(2)//加速
+				$rootScope.results.magicShield = Math.floor(( b.magicShield + (a.baseMagicShield||0)) * (1 + (p.magicShield||0) / 100) + $rootScope.results.body * (a.baseMagicShieldPlus||0))
+				$rootScope.results.magicShield = 100 * ($rootScope.results.magicShield / ($rootScope.results.magicShield + 1846.05))
+				$rootScope.results.magicShield = $rootScope.results.magicShield.toFixed(2) 
+				$rootScope.results.physicsShield = Math.floor((b.physicsShield + (a.basePhysicsShield||0)) * (1 + (p.physicsShield||0) / 100) + $rootScope.results.body * (a.basePhysicsShieldPlus||0))
+				$rootScope.results.physicsShield = 100 * ($rootScope.results.physicsShield / ($rootScope.results.physicsShield + 1846.05))
+				$rootScope.results.physicsShield = $rootScope.results.physicsShield.toFixed(2)
+				$rootScope.results.toughness = Math.floor(b.toughness * (1 + (p.toughness||0) / 100))//预警
+				$rootScope.results.toughness = 100 * ($rootScope.results.toughness / ($rootScope.results.toughness + 4143.92))
+				$rootScope.results.toughness = $rootScope.results.toughness.toFixed(2)
+				$rootScope.results.huajing = Math.floor((b.huajing + 244 ) * (1 + (p.huajing||0) / 100))
+				$rootScope.results.huajing = 100 * ($rootScope.results.huajing / ($rootScope.results.huajing + 732.375))
+				$rootScope.results.huajing = $rootScope.results.huajing.toFixed(2)
+				$rootScope.results.score = Math.floor(b.score)//装分
+				//console.log($rootScope.results.attack)
+				//console.log($rootScope.results.heal)
+				//console.log($rootScope.results.critEffect)
+				//console.log($rootScope.results.crit)
+				//console.log($rootScope.results.overcome)
+				
+				if(type=="spirit"){
+					//rows=[{'na':'最大血气','zhi':$rootScope.results.life},{'na',}]
+					row1='`na最大血气`zh'+$rootScope.results.life+'^`na根骨`zh'+$rootScope.results.spirit+'^`na基础攻击`zh'+$rootScope.results.basicAttack+'^`na面板攻击`zh'+$rootScope.results.attack
+					row2='`na内功会心`zh'+$rootScope.results.crit+'^`na内功会效`zh'+$rootScope.results.critEffect+'^`na内功命中`zh'+$rootScope.results.hit+'^`na急速`zh'+$rootScope.results.acce+'('+$rootScope.results.acceLevel+')'
+					row3='`na无双`zh'+$rootScope.results.strain+'^`na内功破防`zh'+$rootScope.results.overcomeRate+'('+$rootScope.results.overcome+')'+'^`na内功防御`zh'+$rootScope.results.magicShield+'^`na外功防御`zh'+$rootScope.results.physicsShield
+					row4='`na御劲`zh'+$rootScope.results.toughness+'^`na化劲`zh'+$rootScope.results.huajing+'^`na装分`zh'+$rootScope.results.score
+				}
+				if(type=="strength"){
+					row1='`na最大血气`zh'+$rootScope.results.life+'^`na力道`zh'+$rootScope.results.strength+'^`na基础攻击`zh'+$rootScope.results.basicAttack+'^`na面板攻击`zh'+$rootScope.results.attack
+					row2='`na外功会心`zh'+$rootScope.results.crit+'^`na外功会效`zh'+$rootScope.results.critEffect+'^`na外功命中`zh'+$rootScope.results.hit+'^`na急速`zh'+$rootScope.results.acce+'('+$rootScope.results.acceLevel+')'
+					row3='`na无双`zh'+$rootScope.results.strain+'^`na外功破防`zh'+$rootScope.results.overcomeRate+'('+$rootScope.results.overcome+')'+'^`na内功防御`zh'+$rootScope.results.magicShield+'^`na外功防御`zh'+$rootScope.results.physicsShield
+					row4='`na御劲`zh'+$rootScope.results.toughness+'^`na化劲`zh'+$rootScope.results.huajing+'^`na装分`zh'+$rootScope.results.score
+				}if(type=="agility"){
+					row1='`na最大血气`zh'+$rootScope.results.life+'^`na身法`zh'+$rootScope.results.agility+'^`na基础攻击`zh'+$rootScope.results.basicAttack+'^`na面板攻击`zh'+$rootScope.results.attack
+					row2='`na外功会心`zh'+$rootScope.results.crit+'^`na外功会效`zh'+$rootScope.results.critEffect+'^`na外功命中`zh'+$rootScope.results.hit+'^`na急速`zh'+$rootScope.results.acce+'('+$rootScope.results.acceLevel+')'
+					row3='`na无双`zh'+$rootScope.results.strain+'^`na外功破防`zh'+$rootScope.results.overcomeRate+'('+$rootScope.results.overcome+')'+'^`na内功防御`zh'+$rootScope.results.magicShield+'^`na外功防御`zh'+$rootScope.results.physicsShield
+					row4='`na御劲`zh'+$rootScope.results.toughness+'^`na化劲`zh'+$rootScope.results.huajing+'^`na装分`zh'+$rootScope.results.score
+				}
+				if(type=="spunk"){
+					row1='`na最大血气`zh'+$rootScope.results.life+'^`na元气`zh'+$rootScope.results.spunk+'^`na基础攻击`zh'+$rootScope.results.basicAttack+'^`na面板攻击`zh'+$rootScope.results.attack
+					row2='`na内功会心`zh'+$rootScope.results.crit+'^`na内功会效`zh'+$rootScope.results.critEffect+'^`na内功命中`zh'+$rootScope.results.hit+'^`na急速`zh'+$rootScope.results.acce+'('+$rootScope.results.acceLevel+')'
+					row3='`na无双`zh'+$rootScope.results.strain+'^`na内功破防`zh'+$rootScope.results.overcomeRate+'('+$rootScope.results.overcome+')'+'^`na内功防御`zh'+$rootScope.results.magicShield+'^`na外功防御`zh'+$rootScope.results.physicsShield
+					row4='`na御劲`zh'+$rootScope.results.toughness+'^`na化劲`zh'+$rootScope.results.huajing+'^`na装分`zh'+$rootScope.results.score
+					if(a.name=="tianluo"){
+						row1='`na最大血气`zh'+$rootScope.results.life+'^`na元气`zh'+$rootScope.results.spunk+'^`na基础攻击`zh'+$rootScope.results.basicAttack+'^`na面板攻击`zh'+$rootScope.results.attack
+						row2='`na外功会心`zh'+$rootScope.results.crit+'^`na外功会效`zh'+$rootScope.results.critEffect+'^`na外功命中`zh'+$rootScope.results.hit+'^`na急速`zh'+$rootScope.results.acce+'('+$rootScope.results.acceLevel+')'
+						row3='`na无双`zh'+$rootScope.results.strain+'^`na内功破防`zh'+$rootScope.results.overcomeRate+'('+$rootScope.results.overcome+')'+'^`na内功防御`zh'+$rootScope.results.magicShield+'^`na外功防御`zh'+$rootScope.results.physicsShield
+						row4='`na御劲`zh'+$rootScope.results.toughness+'^`na化劲`zh'+$rootScope.results.huajing+'^`na装分`zh'+$rootScope.results.score
+					}
+					
+				}
+				if(type=="hps"){
+					row1='`na最大血气`zh'+$rootScope.results.life+'^`na根骨`zh'+$rootScope.results.spirit+'^`na基础治疗`zh'+$rootScope.results.basicHeal+'^`na面板治疗`zh'+$rootScope.results.heal
+					row2='`na内功会心`zh'+$rootScope.results.crit+'^`na内功会效`zh'+$rootScope.results.critEffect+'^`na内功命中`zh'+$rootScope.results.hit+'^`na急速`zh'+$rootScope.results.acce+'('+$rootScope.results.acceLevel+')'
+					row3='`na内功防御`zh'+$rootScope.results.magicShield+'^`na外功防御`zh'+$rootScope.results.physicsShield+'^`na御劲`zh'+$rootScope.results.toughness+'^`na化劲`zh'+$rootScope.results.huajing
+					row4='`na装分`zh'+$rootScope.results.score
+					
+				}
+				if(type=="t"){
+					row1='`na最大血气`zh'+$rootScope.results.life+'^`na体质`zh'+$rootScope.results.body+'^`na内功防御`zh'+$rootScope.results.magicShield+'^`na外功防御`zh'+$rootScope.results.physicsShield
+					row2='`na御劲`zh'+$rootScope.results.toughness+'^`na闪避`zh'+$rootScope.results.dodge+'^`na招架`zh'+$rootScope.results.parryBase+'^`na拆招`zh'+$rootScope.results.parryBase
+					row3='`na急速`zh'+$rootScope.results.acce+'('+$rootScope.results.acceLevel+')'+'^`na命中`zh'+$rootScope.results.hit+'^`na无双`zh'+$rootScope.results.strain+'^`na装分`zh'+$rootScope.results.score
+					row4=''
+				}
+				rows=[row1,row2,row3,row4]
+				
+				
+				zbszxs(rows)
+			}
+			
+			function zbszxs(rows){
+				
+				var t='<table border="0" cellspacing="0" cellpadding="0">'
+					for(var i=0;i<rows.length;i++){
+						var r=rows[i].split('^')
+						t+='<tr>'
+						for(var j=0;j<r.length;j++){
+							t+='<td style="color:gray">'+Gt3(r[j],'na')+'</td>'
+						}
+						t+='</tr><tr>'
+						
+						for(var y=0;y<r.length;y++){
+							t+='<td>'+Gt3(r[y],'zh')+'</td>'
+						}
+						t+='</tr>'
+						
+						
+						
+					}
+				t+='</table>'	
+				
+				
+				//console.log(t)
+				
+				jQuery(".shouzb").html(t)
+			}
+			//事件操作结束。。。。。。。。。。。。。。。。。。。。。。。。。。。
+			//数组 字符串 操作。。。。。。。。。。。。。。。。。。。。。。
+		</script>
+	</body>
+
+</html>

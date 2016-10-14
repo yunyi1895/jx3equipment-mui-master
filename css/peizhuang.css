@@ -1,0 +1,111 @@
+/*配装*/
+
+.equipment{
+	background-color: rgb(19, 34, 33);
+    width: 41rem;
+  	margin:0 auto;
+    padding: 0 4px;
+    text-align: left;
+    border-radius: 5px;
+    margin-bottom: 24px;
+}
+
+.equipment li{
+	list-style: none;
+	display: block;
+	font-size: 13px;
+	letter-spacing: 1px;
+}
+.equipment li .qingse{
+	color: #8fbc8f;
+}
+.ep_name{
+	color: rgb(241, 44, 241);
+    display: inline;
+    font-size: 16px;
+    
+    
+}
+.ep_name .star{
+	    color: #ffff00;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.ep_name #jinglian{
+	   
+    font-size: 13px;
+    letter-spacing: 1px;
+    float:right;
+}
+.ep_publicAttributes,.ep_place,.ep_sects,.ep_getPath{
+	color: #F2F2F2;
+}
+.ep_privateAttributes,.ep_mosaic{
+color:  rgb(0, 200, 72);
+}
+
+.ep_quality{
+	color: #ffff00;
+}
+.ep_fraction{
+	color: #ff8000;
+}
+
+.btn{
+	width: 41rem;
+	margin:0 auto;
+	text-align: center;
+}
+.btn .mui-btn{
+	
+	margin: 0.5rem 1.4rem;
+}
+
+.activebtn{
+	background:#007AFF;
+	color: #fff;
+}
+.xqhbtn{
+	background:#007AFF;
+	color: #fff;
+}
+.texiao1{
+	color: rgb(155, 155, 155);
+}
+.texiao2{
+	color: #ffff00;
+}
+
+.field-contain label{
+	width: auto;
+	padding-right: 0;
+}
+		
+.field-contain input[type='text']{
+	width: 20px;
+	
+	padding: 5px 0;
+	float: none;
+	text-align: center;
+}
+
+.mui-tooltip{
+	display: none;
+}
+
+.shouzb{
+	width: 41rem;
+  	margin:12px auto;
+    padding: 0 4px;
+   	
+   	
+}
+.shouzb table{
+	width: 41rem;
+}
+.shouzb table th,.shouzb table td{
+	text-align: center;
+	color: 	rgb(119,​ 119,​ 119);
+}
+

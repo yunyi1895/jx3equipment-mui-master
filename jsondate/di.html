@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>1112</title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<div id="ddq">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		var zhiliao=[{zy:'lijing',ggxf:'240'},{zy:'yunchang',ggxf:'240'},{zy:'xiangzhi',ggxf:'240'},{zy:'butian',ggxf:'240'}]
+		var mt=[{zy:'tielao',ggxf:'15'},{zy:'tiegu',ggxf:'15'},{zy:'xisui',ggxf:'15'},{zy:'mingzun',ggxf:'15'}]
+		var ng1bx=[{zy:'bingxin',ggxf:'245760'},{zy:'dujing',ggxf:'245760'},{zy:'zixia',ggxf:'245760'},{zy:'mowen',ggxf:'245760'}]
+		var ng2hj=[{zy:'huajian',ggxf:'3932160'},{zy:'yijing',ggxf:'3932160'},{zy:'tianluo',ggxf:'3932160'},{zy:'fenying',ggxf:'3932160'}]
+		
+		function wd(arr){
+			var ur=arr[0].zy+'.json';
+			var xf=arr[0].ggxf
+			$.getJSON(ur,function(data){
+				var t=''
+				for(var i=0;i<data.length;i++){
+					if(data[i].xinfatype!=xf){
+						t+=JSON.stringify(data[i])+',' 
+					}
+				}
+				console.log(t)
+			})
+		
+		}
+		wd(zhiliao)
+		//wd(arr1,xinfatype[0])
+	</script>
+</html>
